@@ -1,0 +1,69 @@
+<!-- src/main/resources/templates/register.html -->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Usuario</title>
+</head>
+<body>
+<h2>Formulario de Registro</h2>
+<form id="registerForm">
+  <label for="name">Nombre de usuario:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="password">Contraseña:</label><br>
+  <input type="password" id="password" name="password" required><br><br>
+
+  <label for="email">Correo electrónico:</label><br>
+  <input type="email" id="email" name="email" required><br><br>
+
+  <label for="rol">Rol:</label><br>
+  <select id="rol" name="rol">
+    <option value="CLIENTE">Cliente</option>
+    <option value="ADMIN">Admin</option>
+  </select><br><br>
+
+  <button type="submit">Registrar</button>
+</form>
+
+<form th:action="@{/auth/login}" method="get">
+  <button type="submit">Iniciar Sesion</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+  document.getElementById('registerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Obtener los datos del formulario
+      const userData = {
+          name: document.getElementById('name').value,
+          password: document.getElementById('password').value,
+          email: document.getElementById('email').value,
+          rol: document.getElementById('rol').value // Se recoge el valor del select
+      };
+
+      // Enviar los datos al backend utilizando Fetch API
+      fetch('/auth/addNewUser', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(userData)
+      })
+      .then(response => response.text())
+      .then(data => {
+          alert(data);
+          window.location.href = "/auth/login"; // Redirige a la página de login después del registro
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert("Hubo un error al registrar el usuario.");
+      });
+  });
+</script>
+</body>
+</html>
+
