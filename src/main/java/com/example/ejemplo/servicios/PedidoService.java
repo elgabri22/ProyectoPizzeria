@@ -22,11 +22,19 @@ public class PedidoService {
         return pedido;
     }
 
+    public List<Pedido> findPedidoByCliente(String cliente){
+        return this.pedidoRepository.findByCliente(cliente);
+    }
+
     public List<Pedido> findAll(){
         return this.pedidoRepository.findAll();
     }
 
     public void insertaPedido(Pedido pedido){
+        this.pedidoRepository.save(pedido);
+    }
+
+    public void updatePedido(Pedido pedido){
         this.pedidoRepository.save(pedido);
     }
 

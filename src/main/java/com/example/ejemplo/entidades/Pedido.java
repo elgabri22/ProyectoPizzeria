@@ -2,6 +2,7 @@ package com.example.ejemplo.entidades;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pedido {
-    private String _id;
+    private ObjectId _id;
     private String cliente;
     private List<Pizza>pizzas;
     private double total;
@@ -19,16 +20,13 @@ public class Pedido {
     private String estado;
 
     public String get_id() {
-        return _id;
+        return _id.toHexString();
     }
 
-    public void set_id(String _id) {
+    public void set_id(ObjectId _id) {
         this._id = _id;
     }
 
-    public String getCliente() {
-        return cliente;
-    }
 
     public void setCliente(String cliente) {
         this.cliente = cliente;

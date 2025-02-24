@@ -32,7 +32,11 @@ public class PizzaService {
         this.pizzaRepository.save(pizza);
     }
 
+    public void updatePizza(Pizza pizza){
+        this.pizzaRepository.save(pizza);
+    }
+
     public void deletePizza(Pizza pizza){
-        this.pizzaRepository.deleteById(pizza.get_id());
+        this.pizzaRepository.deleteById(pizza.get_id().toString());
     }
 }

@@ -40,6 +40,12 @@ public class ApiPizzaController {
         return ResponseEntity.ok("Pizza insertada correctamente");
     }
 
+    @PostMapping("/updatePizza")
+    public ResponseEntity<String> updatePizza(@RequestBody Pizza pizza){
+        this.pizzaService.insertaPizza(pizza);
+        return ResponseEntity.ok("Pizza actualizada correctamente");
+    }
+
     @PostMapping("/deletePizza/{id}")
     public ResponseEntity<String> borraPizza(@RequestBody Pizza pizza){
         this.pizzaService.deletePizza(pizza);

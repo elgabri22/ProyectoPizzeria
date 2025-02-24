@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,8 @@
 
 <!-- Contenedor de botones centrados -->
 <div class="text-center">
-  <button class="btn btn-primary m-2">Pizzas</button>
-  <button class="btn btn-secondary m-2">Pedidos</button>
+  <a th:href="@{/pizzas/{correo}(correo=${correo})}"><button class="btn btn-primary m-2">Pizzas</button></a>
+  <a th:href="@{/pedidos/{correo}(correo=${correo})}"><button class="btn btn-secondary m-2">Pedidos</button></a>
 </div>
 
 <!-- Incluir Bootstrap JS desde CDN (opcional si necesitas funcionalidades como el dropdown o el modal) -->

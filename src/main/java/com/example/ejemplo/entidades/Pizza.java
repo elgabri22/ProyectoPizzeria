@@ -3,6 +3,7 @@ package com.example.ejemplo.entidades;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Pizza {
     @Id
-    private String _id;
+    private ObjectId _id;
     private String nombre;
     private String descripcion;
     private List<String>ingredientes;
@@ -21,10 +22,10 @@ public class Pizza {
     private boolean disponible;
 
     public String get_id() {
-        return _id;
+        return _id.toHexString();
     }
 
-    public void set_id(String _id) {
+    public void set_id(ObjectId _id) {
         this._id = _id;
     }
 
