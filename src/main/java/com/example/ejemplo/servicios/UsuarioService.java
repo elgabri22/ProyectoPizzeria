@@ -24,6 +24,16 @@ public class UsuarioService {
         return usuario;
     }
 
+    public Usuario findUsuarioByEmail(String email){
+        Usuario usuario=null;
+        Optional<Usuario> pedidoOptional= this.usuarioRepository.findByemail(email);
+        if (pedidoOptional.isPresent()){
+            System.out.println("AAAAAAAAAAAA");
+            usuario=pedidoOptional.get();
+        }
+        return usuario;
+    }
+
     public List<Usuario> findAll(){
         return this.usuarioRepository.findAll();
     }

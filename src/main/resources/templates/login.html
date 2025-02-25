@@ -84,6 +84,21 @@
       if (data) {
         // Guardar el token en localStorage
         localStorage.setItem("jwtToken", data);
+
+        fetch(`http://localhost:8080/apiusuario/getRol/${username}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  return response.text();
+                })
+                .then(data => {
+                  localStorage.setItem("rol",data);
+                })
+                .catch(error => {
+                  console.error("Error en la solicitud:", error);
+                });
+
         alert("Login exitoso!");
         window.location.href = "http://localhost:8080/auth/home/"+username;
       } else {

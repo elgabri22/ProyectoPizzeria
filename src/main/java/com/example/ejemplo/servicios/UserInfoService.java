@@ -32,7 +32,7 @@ public class UserInfoService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Usuario> userDetail = usuarioRepository.findByEmail(username); // Assuming 'email' is used as username
+        Optional<Usuario> userDetail = usuarioRepository.findByemail(username); // Assuming 'email' is used as username
 
         // Converting UserInfo to UserDetails
         return userDetail.map(UserInfoDetails::new)
