@@ -41,4 +41,8 @@ public class PedidoService {
     public void deletePedido(Pedido pedido){
         this.pedidoRepository.deleteById(pedido.get_id());
     }
+
+    public void deletePedidoById(String id){
+        this.pedidoRepository.deleteById(id);
+    }
 }

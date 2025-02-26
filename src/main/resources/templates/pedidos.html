@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,12 @@
 <body>
 <div class="container">
     <h2 class="my-4">Catálogo de Pedidos</h2>
-    <button style="float: right">
-        <i class="fas fa-plus"></i>
-    </button>
+    <a th:href="@{/crearPedidos/{username}(username=${username})}">
+        <button style="float: right">
+            <i class="fas fa-plus"></i>
+        </button>
+    </a>
+
 
 
     <!-- Contenedor para mostrar los pedidos -->
@@ -78,6 +81,9 @@
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('btn', 'btn-danger');
                 deleteButton.textContent = 'Eliminar';
+                deleteButton.addEventListener("click",function (ev){
+                    window.location.href = "http://localhost:8080/deletePedido/"+order._id+"/"+correo;
+                });
 
                 // Append buttons to the button container
                 buttonContainer.appendChild(detailsButton);

@@ -27,6 +27,9 @@ public class Pedido {
         this._id = _id;
     }
 
+    public String getCliente() {
+        return cliente;
+    }
 
     public void setCliente(String cliente) {
         this.cliente = cliente;
