@@ -84,6 +84,11 @@
                 deleteButton.addEventListener("click",function (ev){
                     window.location.href = "http://localhost:8080/deletePedido/"+order._id+"/"+correo;
                 });
+                detailsButton.addEventListener("click",function (ev){
+                    window.location.href = "http://localhost:8080/editaPedidos/"+correo+"/"+order._id;
+                });
+
+
 
                 // Append buttons to the button container
                 buttonContainer.appendChild(detailsButton);
