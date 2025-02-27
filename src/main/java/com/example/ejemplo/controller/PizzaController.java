@@ -1,6 +1,7 @@
 package com.example.ejemplo.controller;
 
 import com.example.ejemplo.entidades.Pedido;
+import com.example.ejemplo.entidades.Pizza;
 import com.example.ejemplo.repositorios.PedidoRepository;
 import com.example.ejemplo.servicios.PedidoService;
 import com.example.ejemplo.servicios.PizzaService;
@@ -72,5 +73,22 @@ public class PizzaController {
     public String deletePedido(@PathVariable String id,@PathVariable String username){
         this.pedidoService.deletePedidoById(id);
         return "redirect:/pedidos/"+username;
+    }
+
+    @GetMapping("/deletePizza/{id}/{username}")
+    public String deletePizza(@PathVariable String id,@PathVariable String username){
+        this.pizzaService.deletePizza(id);
+        return "redirect:/pizzas/"+username;
+    }
+
+    @GetMapping("/editaPizza/{username}/{id_pizza}")
+    public String creaPedidos(@ModelAttribute Pizza pizza, BindingResult bindingResult, Model model, @PathVariable String username, @PathVariable String id_pizza){
+        model.addAttribute("username",username);
+        return "editPizza";
+    }
+
+    @GetMapping("/crearPizza/{username}")
+    public String creaPizza(@ModelAttribute Pedido pedido, BindingResult bindingResult, Model model,@PathVariable String username){
+        return "addPizza";
     }
 }

@@ -39,4 +39,8 @@ public class PizzaService {
     public void deletePizza(Pizza pizza){
         this.pizzaRepository.deleteById(pizza.get_id().toString());
     }
+
+    public void deletePizza(String id){
+        this.pizzaRepository.deleteById(id);
+    }
 }
