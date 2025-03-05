@@ -23,7 +23,10 @@
                 <option value="" disabled>Seleccione una o más pizzas</option>
                 <option th:each="pizza : ${pizzas}"
                         th:value="${pizza._id}"
-                        th:text="${pizza.nombre}"></option>
+                        th:text="${pizza.nombre}"
+                        th:attr="data-precio=${pizza.precio}">
+                </option>
+
             </select>
         </div>
 
@@ -33,22 +36,28 @@
             <input type="number" id="total" class="form-control" th:field="*{total}" required>
         </div>
 
-        <!-- Estado del pedido -->
-        <div class="mb-3">
-            <label for="estado" class="form-label">Estado</label>
-            <select id="estado" class="form-select" th:field="*{estado}">
-                <option value="true">Activo</option>
-                <option value="false">Inactivo</option>
-            </select>
-        </div>
-
         <!-- Botón de submit -->
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Añadir Pedido</button>
+            <button id="boton" type="submit" class="btn btn-primary">Añadir Pedido</button>
         </div>
     </form>
 </div>
+
+<script>
+    const correo =  JSON.parse(atob(localStorage.getItem("jwtToken").split(".")[1])).sub;
+    const pizzasSelect = document.getElementById('pizzas');
+    function calcularTotal() {
+        debugger;
+        let total = 0;
+        let pizzasSeleccionadas = document.getElementById('pizzas').selectedOptions;
+        for (let pizza of pizzasSeleccionadas) {
+            total += parseFloat(pizza.getAttribute('data-precio')) || 0;
+        }
+        document.getElementById('total').value = total;
+    }
+    pizzasSelect.addEventListener("change", calcularTotal);
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

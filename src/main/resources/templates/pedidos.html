@@ -74,25 +74,29 @@
                 const buttonContainer = document.createElement('div');
                 buttonContainer.classList.add('d-flex', 'justify-content-between');
 
-                const detailsButton = document.createElement('button');
-                detailsButton.classList.add('btn', 'btn-primary');
-                detailsButton.textContent = 'Actualizar';
+                if (rol=="ADMIN"){
+                    const detailsButton = document.createElement('button');
+                    detailsButton.classList.add('btn', 'btn-primary');
+                    detailsButton.textContent = 'Actualizar';
 
-                const deleteButton = document.createElement('button');
-                deleteButton.classList.add('btn', 'btn-danger');
-                deleteButton.textContent = 'Eliminar';
-                deleteButton.addEventListener("click",function (ev){
-                    window.location.href = "http://localhost:8080/deletePedido/"+order._id+"/"+correo;
-                });
-                detailsButton.addEventListener("click",function (ev){
-                    window.location.href = "http://localhost:8080/editaPedidos/"+correo+"/"+order._id;
-                });
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('btn', 'btn-danger');
+                    deleteButton.textContent = 'Eliminar';
+                    deleteButton.addEventListener("click",function (ev){
+                        window.location.href = "http://localhost:8080/deletePedido/"+order._id+"/"+correo;
+                    });
+                    detailsButton.addEventListener("click",function (ev){
+                        window.location.href = "http://localhost:8080/editaPedidos/"+correo+"/"+order._id;
+                    });
 
 
 
-                // Append buttons to the button container
-                buttonContainer.appendChild(detailsButton);
-                buttonContainer.appendChild(deleteButton);
+                    // Append buttons to the button container
+                    buttonContainer.appendChild(detailsButton);
+                    buttonContainer.appendChild(deleteButton);
+                }
+
+
 
                 // Append the card elements
                 cardBody.appendChild(orderTitle);

@@ -29,6 +29,7 @@
   // Function to load pizzas dynamically
   async function loadPizzas() {
     const correo =  JSON.parse(atob(localStorage.getItem("jwtToken").split(".")[1])).sub;
+    const rol= localStorage.getItem("rol");
     try {
       // Fetch the pizza data from your backend (adjust the URL to your endpoint)
       const response = await fetch('/apipizza/getPizzas');
@@ -75,20 +76,27 @@
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add('d-flex', 'justify-content-between');
 
-        const detailsButton = document.createElement('button');
-        detailsButton.classList.add('btn', 'btn-primary');
-        detailsButton.textContent = 'Actualizar';
+        if (rol=="ADMIN"){
+          const detailsButton = document.createElement('button');
+          detailsButton.classList.add('btn', 'btn-primary');
+          detailsButton.textContent = 'Actualizar';
+          detailsButton.addEventListener("click",function (ev){
+            window.location.href = "http://localhost:8080/editaPizza/"+correo+"/"+pizza._id;
+          });
 
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('btn', 'btn-danger');
-        deleteButton.textContent = 'Eliminar';
-        deleteButton.addEventListener("click",function (ev){
-          window.location.href = "http://localhost:8080/deletePizza/"+pizza._id+"/"+correo;
-        });
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('btn', 'btn-danger');
+          deleteButton.textContent = 'Eliminar';
+          deleteButton.addEventListener("click",function (ev){
+            window.location.href = "http://localhost:8080/deletePizza/"+pizza._id+"/"+correo;
+          });
 
-        // Append buttons to the button container
-        buttonContainer.appendChild(detailsButton);
-        buttonContainer.appendChild(deleteButton);
+          // Append buttons to the button container
+          buttonContainer.appendChild(detailsButton);
+          buttonContainer.appendChild(deleteButton);
+        }
+
+
 
         // Append the card elements
         cardBody.appendChild(cardTitle);

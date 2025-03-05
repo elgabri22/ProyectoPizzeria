@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class PizzaController {
@@ -55,6 +56,7 @@ public class PizzaController {
     public String addPedidos(@ModelAttribute Pedido pedido, BindingResult bindingResult, Model model,@PathVariable String username){
         pedido.setCliente(username);
         pedido.setFecha_pedido(new Date());
+        pedido.setEstado("Pendiente");
         this.pedidoService.insertaPedido(pedido);
         return "redirect:/pedidos/"+username;
     }
@@ -65,6 +67,7 @@ public class PizzaController {
         }else {
             pedido.setCliente(username);
             pedido.set_id(new ObjectId(id));
+            pedido.setEstado("Pendiente");
             this.pedidoService.updatePedido(pedido);
         }
         return "redirect:/pedidos/"+username;
@@ -84,11 +87,46 @@ public class PizzaController {
     @GetMapping("/editaPizza/{username}/{id_pizza}")
     public String creaPedidos(@ModelAttribute Pizza pizza, BindingResult bindingResult, Model model, @PathVariable String username, @PathVariable String id_pizza){
         model.addAttribute("username",username);
+        model.addAttribute("pizza",this.pizzaService.findPizzaById(id_pizza));
         return "editPizza";
     }
 
     @GetMapping("/crearPizza/{username}")
-    public String creaPizza(@ModelAttribute Pedido pedido, BindingResult bindingResult, Model model,@PathVariable String username){
+    public String creaPizza(@ModelAttribute Pizza pizza, BindingResult bindingResult, Model model,@PathVariable String username){
+        model.addAttribute("username",username);
         return "addPizza";
     }
+
+    @PostMapping("/addPizza/{username}")
+    public String addPizza(@ModelAttribute Pizza pizza, BindingResult bindingResult, Model model,@PathVariable String username){
+        this.pizzaService.insertaPizza(pizza);
+        return "redirect:/pizzas/"+username;
+    }
+
+    @PostMapping("/editPizza/{username}/{id}")
+    public String editPizza(
+            @ModelAttribute("pizza") Pizza pizza,
+            BindingResult result,
+            Model model,
+            @PathVariable String username,
+            @PathVariable String id) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("username", username);
+            model.addAttribute("pizza", pizza);
+            return "editPizza"; // Devuelve el formulario con los errores
+        }
+
+        Pizza existingPizza = pizzaService.findPizzaById(id); // Buscar la pizza en la BD
+        if (existingPizza!=null) {
+            pizza.set_id(new ObjectId(id)); // Asegurar que el ID es correcto
+            pizzaService.updatePizza(pizza);
+        } else {
+            model.addAttribute("error", "Pizza no encontrada.");
+            return "editPizza"; // Redirige al formulario si la pizza no existe
+        }
+
+        return "redirect:/pizzas/" + username; // Redirige al listado de pizzas del usuario
+    }
+
 }

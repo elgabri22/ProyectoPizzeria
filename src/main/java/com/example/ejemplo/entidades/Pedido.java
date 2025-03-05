@@ -17,7 +17,7 @@ public class Pedido {
     private List<Pizza>pizzas;
     private double total;
     private Date fecha_pedido;
-    private boolean estado;
+    private String estado;
 
     public String get_id() {
         return _id.toHexString();
@@ -59,11 +59,11 @@ public class Pedido {
         this.fecha_pedido = fecha_pedido;
     }
 
-    public boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }
